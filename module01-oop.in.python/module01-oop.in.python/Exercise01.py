@@ -30,3 +30,14 @@ class Account:
             raise InsufficientBalanceException("Your balance does not cover your expenses", deficit)
         self.balance = self.balance - amount
         return self.balance
+
+acc1 = Account("TR290006222359813456984831", 100_000)
+try:
+    acc1.withdraw(50_000)
+    print(acc1.balance)
+    acc1.withdraw(25_000)
+    print(acc1.balance)
+    acc1.withdraw(35_000)
+except InsufficientBalanceException as e:
+    print(f"Reason is {e.message}")
+    print(f"Deficit is {e.deficit}")
