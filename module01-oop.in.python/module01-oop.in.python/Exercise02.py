@@ -30,6 +30,7 @@ class OverCapacityError(Exception):
     def __str__(self) -> str:
         return f'OverCapacityError [{self.message}]: {self.over_weight}'
 
+
 class vehicle:
     """
             members:
@@ -39,11 +40,58 @@ class vehicle:
                                      __str__: def __str__ object -> str
     """
 
+    def __init__(self, licence_plate: str, capacity: float = 3_000, color: Color = Color.BLACK):
+        self.__licence_plate = licence_plate
+        self.__capacity = capacity
+        self.__color = color
+        self.__load = 0
 
+    @property
+    def capacity(self):
+        return self.__capacity
+
+    @property
+    def license_plate(self):
+        return self.__licence_plate
+
+    @property
+    def color(self):
+        return self.__color
+
+    @color.setter
+    def color(self, color: Color):
+        self.__color = color
+
+    @property
+    def current_load(self):
+        return self.__load
+
+    def load(self, weight: float) -> float:
+        if weight <= 0.0:
+            raise ValueError('weight must be greater than zero')
+        if weight + self.__load > self.__capacity:
+            raise OverCapacityError(f"{self.__load} and {weight} exceeds the capacity {self.__capacity}",
+                                    self.__load + weight - self.__capacity)
+        self.__load += weight
+        return self.__load
+
+    def unload(self, weight: float) -> float:
+        print(f"unloading the weight ({weight}) from the vehicle ({self.__licence_plate})")
+        if weight <= 0.0:
+            raise ValueError('weight must be greater than zero')
+        if weight > self.__load:
+            raise ValueError('weight must be less than or equal to load')
+        self.__load -= weight
+        return self.__load
+
+    def __str__(self):
+        return f"vehicle[license_plate={self.__licence_plate}, color= {self.__color}, current load= {self.current_load}, capacity={self.__capacity}]"
+
+
+vehicle1 = vehicle(licence_plate="34abc42", capacity=5_000, color=Color.RED)
+vehicle2 = vehicle("06def49", 2_500, color=Color.GREEN)
+vehicle3 = vehicle(capacity=8_000, licence_plate="07mn108", color=Color.BLUE)
 try:
-    vehicle1 = vehicle(licence_plate="34abc42", capacity=5_000)
-    vehicle2 = vehicle("06def49", 2_500)
-    vehicle3 = vehicle(capacity=8_000, licence_plate="07mn108")
     vehicle2.load(1_000)
     vehicle3.load(2_000)
     print(f"vehicle1's current load: {vehicle1.current_load}")
