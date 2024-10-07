@@ -19,6 +19,6 @@ Event Storming
 Class --> Object
 
 Object-Oriented Programming
-1. Class/Object: Encapsulation + Information Hiding
-2. Inheritance : Reusability
+1. Class/Object: Encapsulation + Information Hiding ✔
+2. Inheritance : Reusability ✔
 3. Polymorphism: Agility
