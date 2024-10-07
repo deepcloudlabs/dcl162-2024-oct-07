@@ -112,9 +112,25 @@ class CheckingAccount(Account):
         return f"CheckingAccount: iban: {self.iban}, balance: {self.balance}, status: {self.status}, overdraftAmount: {self.__overdraftAmount}"
 
 
+class Customer:
+    def __init__(self, identity, fullname):
+        self.__identity = identity
+        self.__fullname = fullname
+        self.__accounts = []
+
+    def add_account(self, account):
+        self.__accounts.append(account)
+
+    def fun(self, amount):
+        for account in self.__accounts:
+            account.withdraw(amount)
+
+
 acc1 = Account("TR290006222359813456984831", 100_000)
 acc2 = CheckingAccount("TR290006222359813456984831", 100_000, overdraft_amount=10_000)
-
+jack = Customer("11111111110", "jack bauer")
+jack.add_account(acc1)
+jack.add_account(acc2)
 try:
     acc1.withdraw(50_000)
     print(acc1)
