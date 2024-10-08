@@ -1,0 +1,24 @@
+data structures: list, set, tuple, dictionary, ...
+memory -- persist --> I. file system
+                     II. databases
+number = 42 -> 4B
+persistence strategy:
+1. text i/o -> HRF: structured/semi-structured -> csv, xml, json, yaml, ...
+   base64 encoding, hex encoding, ...: binary -> text i/o
+   character stream
+   | 4 | 2 |
+   | 3 | 6 | 1 | 5 |
+   | 1 | 0 | 0 | 0 | 0 | 0 | 0 |
+   inefficient
+
+numbers = [4,8,15,16,23,42]
+   | 4 | 8 | 1 | 5 | 1 | 6 | 2 | 3 | 4 | 2 |
+   | 4 | , | 8 | , | 1 | 5 | , | 1 | 6 | , | 2 | 3 | , | 4 | 2 |
+
+2. binary i/o: unstructured data -> jpg, gif, mp4, avi, png, mp3, ...
+   efficient
+   number = 42
+            3615     ==> 4B
+            1000000
+
+   numbers = [4,8,15,16,23,42] ==> 24B
