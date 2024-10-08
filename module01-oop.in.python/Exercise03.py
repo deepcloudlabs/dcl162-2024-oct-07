@@ -17,15 +17,16 @@ class AccountStatus(Enum):
 
 # interface -> abstract class
 class Depositable(ABC):
-    #abstract method
+    # abstract method
     @abstractmethod
     def deposit(self, amount: float) -> float:
         pass
 
-    #abstract method
+    # abstract method
     @abstractmethod
     def gun(self):
         pass
+
 
 class Withdrawable:
     def withdraw(self, amount: float) -> float:
@@ -45,7 +46,7 @@ class DebitAccount(Depositable, Withdrawable):
         # attributes/state/data: iban, balance
         self.__iban = iban
         # constraint: self.balance must be always positive or zero
-        self.__balance = balance
+        self._balance = balance
         self.__status = status
 
     def deposit(self, amount):
@@ -55,8 +56,8 @@ class DebitAccount(Depositable, Withdrawable):
         # validation rule
         if amount <= 0.0:
             raise ValueError('Amount must be positive')
-        self.__balance = self.__balance + amount
-        return self.__balance
+        self._balance = self._balance + amount
+        return self._balance
 
     # business method
     def withdraw(self, amount):
@@ -67,16 +68,19 @@ class DebitAccount(Depositable, Withdrawable):
         if amount <= 0.0:
             raise ValueError('Amount must be positive')
         # business rule
-        if amount > self.__balance:
-            deficit = amount - self.__balance
+        if amount > self._balance:
+            deficit = amount - self._balance
             # business exception
             raise InsufficientBalanceException("Your balance does not cover your expenses", deficit)
-        self.__balance = self.__balance - amount
-        return self.__balance
+        self._balance = self._balance - amount
+        return self._balance
+
+    def gun(self):
+        pass
 
     @property
     def balance(self):
-        return self.__balance
+        return self._balance
 
     @property
     def iban(self):
@@ -95,7 +99,7 @@ class DebitAccount(Depositable, Withdrawable):
         self.__status = status
 
     def __str__(self):
-        return f"Account: iban: {self.__iban}, balance: {self.__balance}, status: {self.__status}"
+        return f"Account: iban: {self.__iban}, balance: {self._balance}, status: {self.__status}"
 
 
 """
@@ -117,12 +121,12 @@ class CheckingAccount(DebitAccount):
         if amount <= 0.0:
             raise ValueError('Amount must be positive')
         # business rule
-        if amount > (self.__balance + self.__overdraftAmount):
-            deficit = amount - self.__balance - self.__overdraftAmount
+        if amount > (self._balance + self.__overdraftAmount):
+            deficit = amount - self._balance - self.__overdraftAmount
             # business exception
             raise InsufficientBalanceException("Your balance does not cover your expenses", deficit)
-        self.__balance = self.__balance - amount
-        return self.__balance
+        self._balance = self._balance - amount
+        return self._balance
 
     @property
     def overdraft_balance(self):

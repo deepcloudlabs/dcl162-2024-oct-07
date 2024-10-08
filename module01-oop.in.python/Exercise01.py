@@ -19,7 +19,7 @@ class Account:
         # attributes/state/data: iban, balance
         self.__iban = iban
         # constraint: self.balance must be always positive or zero
-        self.__balance = balance
+        self._balance = balance
         self.__status = status
 
     def deposit(self, amount):
@@ -29,8 +29,8 @@ class Account:
         # validation rule
         if amount <= 0.0:
             raise ValueError('Amount must be positive')
-        self.__balance = self.__balance + amount
-        return self.__balance
+        self._balance = self._balance + amount
+        return self._balance
 
     # business method
     def withdraw(self, amount):
@@ -41,16 +41,16 @@ class Account:
         if amount <= 0.0:
             raise ValueError('Amount must be positive')
         # business rule
-        if amount > self.__balance:
-            deficit = amount - self.__balance
+        if amount > self._balance:
+            deficit = amount - self._balance
             # business exception
             raise InsufficientBalanceException("Your balance does not cover your expenses", deficit)
-        self.__balance = self.__balance - amount
-        return self.__balance
+        self._balance = self._balance - amount
+        return self._balance
 
     @property
     def balance(self):
-        return self.__balance
+        return self._balance
 
     @property
     def iban(self):
@@ -69,7 +69,7 @@ class Account:
         self.__status = status
 
     def __str__(self):
-        return f"Account: iban: {self.__iban}, balance: {self.__balance}, status: {self.__status}"
+        return f"Account: iban: {self.__iban}, balance: {self._balance}, status: {self.__status}"
 
 
 """
@@ -91,12 +91,12 @@ class CheckingAccount(Account):
         if amount <= 0.0:
             raise ValueError('Amount must be positive')
         # business rule
-        if amount > (self.__balance + self.__overdraftAmount):
-            deficit = amount - self.__balance - self.__overdraftAmount
+        if amount > (self._balance + self.__overdraftAmount):
+            deficit = amount - self._balance - self.__overdraftAmount
             # business exception
             raise InsufficientBalanceException("Your balance does not cover your expenses", deficit)
-        self.__balance = self.__balance - amount
-        return self.__balance
+        self._balance = self._balance - amount
+        return self._balance
 
     @property
     def overdraft_balance(self):
@@ -126,22 +126,22 @@ class Customer:
             account.withdraw(amount)
 
 
-acc1 = Account("TR290006222359813456984831", 100_000)
-acc2 = CheckingAccount("TR290006222359813456984831", 100_000, overdraft_amount=10_000)
-jack = Customer("11111111110", "jack bauer")
-jack.add_account(acc1) # add_account(jack, acc1)
-jack.add_account(acc2)
+account1 = Account("TR290006222359813456984831", 100_000)
+acc2 = CheckingAccount("TR120006233271762591765486", 100_000, overdraft_amount=10_000)
+kate = Customer("11111111110", "kate austen")
+kate.add_account(account1)  # add_account(kate, account1)
+kate.add_account(acc2)
 try:
-    acc1.withdraw(50_000)
-    print(acc1)
+    account1.withdraw(50_000)
+    print(account1)
     print(acc2)
-    acc1.withdraw(25_000) # withdraw(acc1,25_000)
-    print(str(acc1))
-    print(acc1)
-    print(acc1.balance)
-    print(acc1.status)  # calls getter method
-    acc1.status = AccountStatus.CLOSED  # calls setter method
-    acc1.withdraw(1_000_000)
+    account1.withdraw(25_000)  # withdraw(acc1,25_000)
+    print(str(account1))
+    print(account1)
+    print(account1.balance)
+    print(account1.status)  # calls getter method
+    account1.status = AccountStatus.CLOSED  # calls setter method
+    account1.withdraw(1_000_000)
 except InsufficientBalanceException as e:
     print(f"Reason is {e.message}")
     print(f"Deficit is {e.deficit}")
