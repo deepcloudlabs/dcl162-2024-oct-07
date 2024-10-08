@@ -1,0 +1,4 @@
+functional programming -> i. abstraction
+                         ii. multi-core programming
+                        iii. reactive system/programming
+
