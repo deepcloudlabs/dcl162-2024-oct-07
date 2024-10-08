@@ -15,6 +15,7 @@ def histogramReducer2(histogram, continent):
     histogram[continent] = histogram.get(continent, 0) + 1
     return histogram
 
+
 def histogramReducer3(histogram, continent):
     histogram[continent] += 1
     return histogram
@@ -22,5 +23,6 @@ def histogramReducer3(histogram, continent):
 
 with open("resources/countries.json", mode="rt", encoding="utf-8") as file:
     countries = json.load(file)
-    continentCountries = reduce(histogramReducer3, map(lambda country: country["continent"], countries), defaultdict(int))
+    continentCountries = reduce(histogramReducer3, map(lambda country: country["continent"], countries),
+                                defaultdict(int))
     print(continentCountries)
