@@ -21,7 +21,6 @@ class Bank:
 
     def get_account(self, iban):
         for customer in self._customers:
-            print(customer.fullname)
             account = customer.get_account(iban)
             if account is not None:
                 return account
