@@ -1,0 +1,22 @@
+{
+  "capital": 129,
+  "cities": [
+    {
+      "district": "–",
+      "_id": 129,
+      "name": "Oranjestad",
+      "population": 29034
+    }
+  ],
+  "_id": "ABW",
+  "continent": "North America",
+  "gnp": 828.0,
+  "governmentForm": "Nonmetropolitan Territory of The Netherlands",
+  "headOfState": "Beatrix",
+  "lifeExpectancy": 78.4,
+  "localName": "Aruba",
+  "name": "Aruba",
+  "population": 103000,
+  "region": "Caribbean",
+  "surfaceArea": 205.0
+}
