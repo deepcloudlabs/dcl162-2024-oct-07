@@ -1,4 +1,3 @@
-# region persistence layer
 import json
 
 from flask import Flask, jsonify, request
@@ -8,6 +7,7 @@ from flask_socketio import SocketIO
 
 from rest_utility.utils import extract_body
 
+# region persistence layer
 mongo_client = MongoClient('mongodb://localhost:27017')
 hrdb = mongo_client['hrdb']
 employees_collection = hrdb['employees']
