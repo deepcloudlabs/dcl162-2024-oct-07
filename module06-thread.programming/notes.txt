@@ -1,0 +1,13 @@
+Thread Programming
+Process -> Application -> CPU, Memory, ...
+Process Memory Model: Heap, Stack, Text, Data
+Parent Process (Heap, Stack, Text, Data) --> Child Process (Heap, Stack, Text, Data)
+Thread -> Stack, Process: Heap, Text, Data
+1. Multi-tasking
+   Multi-process -> Chrome
+   Multi-Process Multi-Thread -> Firefox, Oracle
+   Single Process Multi-thread -> MySQL, MongoDB
+
+2. Multi-core -> Parallel Programming -> GPU
+   Data Parallelism ->
+   Task Parallelism
