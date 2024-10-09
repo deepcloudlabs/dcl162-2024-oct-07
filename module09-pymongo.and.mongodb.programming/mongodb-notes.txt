@@ -1,2 +1,12 @@
 c:\DEVEL\stage\var\scripts\start-mongod.bat
 c:\DEVEL\stage\var\scripts\mongo-cli.bat
+
+mysql (relational)                 mongodb (document)
+  i. tabular                      i. hierarchical
+ ii. ACID                        ii. ACID/BASE
+iii. SQL                        iii. native
+ iv. tables -> records/rows      iv. collection -> document (JSON ) --> BSON
+               columns              fields
+  v. schema (DDL)                 v. schemaless
+ vi. normalization -> join       vi. normalization since mongo 3.4
+vii. transactional              vii. transactional (since mongo 4)
