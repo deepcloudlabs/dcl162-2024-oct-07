@@ -32,6 +32,8 @@ def get_employees_by_identity(identity: str):
 
 @hr_rest_api.route("/hr/api/v1/employees", methods=['GET'])
 def get_employees():
+    limit = request.args.get('limit')
+    skip = request.args.get('skip')    
     return json.dumps([emp for emp in employees_collection.find({})])
 
 
